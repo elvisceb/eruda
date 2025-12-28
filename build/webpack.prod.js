@@ -4,7 +4,10 @@ const TerserPlugin = require('terser-webpack-plugin')
 exports = require('./webpack.base')
 
 exports.mode = 'production'
-exports.output.filename = 'eruda.js'
+exports.output.filename = (chunkData) => {
+  // Only output eruda.js, skip the styles chunk
+  return chunkData.chunk.name === 'eruda' ? 'eruda.js' : '[name].js'
+}
 exports.devtool = 'source-map'
 exports.plugins = exports.plugins.concat([
   new webpack.DefinePlugin({

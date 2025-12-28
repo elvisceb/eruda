@@ -5,14 +5,12 @@ import each from 'licia/each'
 import escape from 'licia/escape'
 import map from 'licia/map'
 import remove from 'licia/remove'
-import evalCss from '../lib/evalCss'
 import { classPrefix as c } from '../lib/util'
 
 export default class Snippets extends Tool {
   constructor() {
     super()
 
-    this._style = evalCss(require('./Snippets.scss'))
 
     this.name = 'snippets'
 
@@ -27,7 +25,6 @@ export default class Snippets extends Tool {
   destroy() {
     super.destroy()
 
-    evalCss.remove(this._style)
   }
   add(name, fn, desc) {
     this._snippets.push({ name, fn, desc })

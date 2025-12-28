@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>External CSS Test</title>
+    <!-- Load external CSS -->
+    <link rel="stylesheet" href="assets/eruda.css" />
+    <!-- Load JavaScript -->
+    <script src="assets/eruda.js"></script>
+  </head>
+  <body>
+    <h1>Eruda External CSS Test</h1>
+    <p>Testing eruda with external CSS loading.</p>
+    <script>
+      // Initialize eruda
+      eruda.init();
+      eruda.show();
+      
+      // Test console output
+      console.log('External CSS test');
+      console.warn('This is a warning');
+      console.error('This is an error');
+    </script>
+  </body>
+</html>

@@ -2,6 +2,7 @@ const autoprefixer = require('autoprefixer')
 const prefixer = require('postcss-prefixer')
 const clean = require('postcss-clean')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const pkg = require('../package.json')
 const path = require('path')
 const ESLintPlugin = require('eslint-webpack-plugin')
@@ -32,7 +33,10 @@ const rawLoader = {
 }
 
 module.exports = {
-  entry: './src/index',
+  entry: {
+    eruda: './src/index',
+    'eruda-styles': './src/style/index.js',
+  },
   resolve: {
     symlinks: false,
     alias: {
@@ -86,6 +90,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
+          MiniCssExtractPlugin.loader,
           'css-loader',
           postcssLoader,
           { loader: 'sass-loader', options: { api: 'modern' } },
@@ -94,7 +99,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /luna-dom-highlighter/,
-        use: ['css-loader', postcssLoader],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', postcssLoader],
       },
       {
         test: /luna-dom-highlighter\.css$/,
@@ -108,5 +113,8 @@ module.exports = {
       VERSION: '"' + pkg.version + '"',
     }),
     new ESLintPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'eruda.css',
+    }),
   ],
 }

@@ -17,7 +17,7 @@ import upperFirst from 'licia/upperFirst'
 import startWith from 'licia/startWith'
 import ready from 'licia/ready'
 import pointerEvent from 'licia/pointerEvent'
-import evalCss from '../lib/evalCss'
+import evalCss from '../lib/evalCss' // Used for theme management (getThemes, setTheme)
 import emitter from '../lib/emitter'
 import { isDarkTheme } from '../lib/themes'
 import LunaNotification from 'luna-notification'
@@ -43,7 +43,7 @@ export default class DevTools extends Emitter {
       defaults
     )
 
-    this._style = evalCss(require('./DevTools.scss'))
+    // CSS is now loaded externally via <link> tag
 
     this.$container = $container
     this._isShow = false
@@ -250,7 +250,6 @@ export default class DevTools extends Emitter {
     this._notification.notify(content, options)
   }
   destroy() {
-    evalCss.remove(this._style)
     this.removeAll()
     this._tab.destroy()
     this._$el.remove()

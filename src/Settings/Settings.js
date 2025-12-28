@@ -7,14 +7,12 @@ import filter from 'licia/filter'
 import isStr from 'licia/isStr'
 import contain from 'licia/contain'
 import clone from 'licia/clone'
-import evalCss from '../lib/evalCss'
 import LunaSetting from 'luna-setting'
 
 export default class Settings extends Tool {
   constructor() {
     super()
 
-    this._style = evalCss(require('./Settings.scss'))
 
     this.name = 'settings'
     this._settings = []
@@ -54,7 +52,6 @@ export default class Settings extends Tool {
     this._setting.destroy()
     super.destroy()
 
-    evalCss.remove(this._style)
   }
   clear() {
     this._settings = []
