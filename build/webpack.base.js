@@ -33,7 +33,10 @@ const rawLoader = {
 }
 
 module.exports = {
-  entry: './src/index',
+  entry: {
+    eruda: './src/index',
+    'eruda-styles': './src/style/index.js',
+  },
   resolve: {
     symlinks: false,
     alias: {
