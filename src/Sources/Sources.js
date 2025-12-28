@@ -9,14 +9,12 @@ import truncate from 'licia/truncate'
 import replaceAll from 'licia/replaceAll'
 import highlight from 'licia/highlight'
 import LunaTextViewer from 'luna-text-viewer'
-import evalCss from '../lib/evalCss'
 import { classPrefix as c } from '../lib/util'
 
 export default class Sources extends Tool {
   constructor() {
     super()
 
-    this._style = evalCss(require('./Sources.scss'))
 
     this.name = 'sources'
     this._showLineNum = true
@@ -31,7 +29,6 @@ export default class Sources extends Tool {
   destroy() {
     super.destroy()
 
-    evalCss.remove(this._style)
     this._rmCfg()
   }
   set(type, val) {

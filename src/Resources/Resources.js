@@ -13,7 +13,6 @@ import toArr from 'licia/toArr'
 import concat from 'licia/concat'
 import map from 'licia/map'
 import { isErudaEl, classPrefix as c } from '../lib/util'
-import evalCss from '../lib/evalCss'
 import Storage from './Storage'
 import Cookie from './Cookie'
 import { setState, getState } from './util'
@@ -22,7 +21,6 @@ export default class Resources extends Tool {
   constructor() {
     super()
 
-    this._style = evalCss(require('./Resources.scss'))
 
     this.name = 'resources'
     this._hideErudaSetting = false
@@ -67,7 +65,6 @@ export default class Resources extends Tool {
     this._localStorage.destroy()
     this._sessionStorage.destroy()
     this._disableObserver()
-    evalCss.remove(this._style)
     this._rmCfg()
   }
   refreshScript() {

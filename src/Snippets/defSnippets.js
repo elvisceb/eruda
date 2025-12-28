@@ -158,7 +158,7 @@ export default [
   },
 ]
 
-evalCss(require('./searchText.scss'), document.head)
+// searchText.scss is now loaded externally via <link> tag
 
 function search(text) {
   const root = document.body

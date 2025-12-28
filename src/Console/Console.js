@@ -13,7 +13,6 @@ import isHidden from 'licia/isHidden'
 import isNull from 'licia/isNull'
 import isArr from 'licia/isArr'
 import extend from 'licia/extend'
-import evalCss from '../lib/evalCss'
 import Settings from '../Settings/Settings'
 import LunaConsole from 'luna-console'
 import LunaModal from 'luna-modal'
@@ -108,9 +107,6 @@ export default class Console extends Tool {
 
     this._container.off('show', this._handleShow)
 
-    if (this._style) {
-      evalCss.remove(this._style)
-    }
     this.ignoreGlobalErr()
     this.restoreConsole()
     this._rmCfg()
@@ -137,7 +133,7 @@ export default class Console extends Tool {
   _appendTpl() {
     const $el = this._$el
 
-    this._style = evalCss(require('./Console.scss'))
+    // CSS is now loaded externally via <link> tag
     $el.append(
       c(`
       <div class="control">

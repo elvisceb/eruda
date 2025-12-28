@@ -43,7 +43,7 @@ export default class DevTools extends Emitter {
       defaults
     )
 
-    this._style = evalCss(require('./DevTools.scss'))
+    // CSS is now loaded externally via <link> tag
 
     this.$container = $container
     this._isShow = false
@@ -250,7 +250,6 @@ export default class DevTools extends Emitter {
     this._notification.notify(content, options)
   }
   destroy() {
-    evalCss.remove(this._style)
     this.removeAll()
     this._tab.destroy()
     this._$el.remove()
