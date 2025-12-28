@@ -27,7 +27,7 @@ import upperFirst from 'licia/upperFirst'
 import nextTick from 'licia/nextTick'
 import isEqual from 'licia/isEqual'
 import extend from 'licia/extend'
-import evalCss from './lib/evalCss'
+import evalCss from './lib/evalCss' // Used for theme/scale management and shadow DOM styles
 import chobitsu from './lib/chobitsu'
 
 export default {

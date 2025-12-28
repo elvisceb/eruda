@@ -17,7 +17,7 @@ import upperFirst from 'licia/upperFirst'
 import startWith from 'licia/startWith'
 import ready from 'licia/ready'
 import pointerEvent from 'licia/pointerEvent'
-import evalCss from '../lib/evalCss'
+import evalCss from '../lib/evalCss' // Used for theme management (getThemes, setTheme)
 import emitter from '../lib/emitter'
 import { isDarkTheme } from '../lib/themes'
 import LunaNotification from 'luna-notification'
