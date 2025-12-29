@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eruda External CSS Loading Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+    <!-- Load eruda.js but NOT the CSS -->
+    <script src="../dist/eruda.js"></script>
+</head>
+<body>
+    <h1>Eruda External CSS Loading Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Load CSS via init() cssUrl parameter</h2>
+        <p>This test initializes eruda with the <code>cssUrl</code> parameter.</p>
+        <button onclick="test1()">Run Test 1</button>
+        <div id="result1" style="margin-top: 10px;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Load CSS via eruda.loadCss() method</h2>
+        <p>This test loads CSS using the <code>eruda.loadCss()</code> method before initialization.</p>
+        <button onclick="test2()">Run Test 2</button>
+        <div id="result2" style="margin-top: 10px;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Manual CSS link (existing behavior)</h2>
+        <p>This is the traditional way where CSS is loaded via a link tag.</p>
+        <button onclick="test3()">Run Test 3</button>
+        <div id="result3" style="margin-top: 10px;"></div>
+    </div>
+
+    <script>
+        function test1() {
+            const result = document.getElementById('result1');
+            result.innerHTML = '<p>Initializing eruda with cssUrl parameter...</p>';
+            
+            try {
+                eruda.init({
+                    cssUrl: '../dist/eruda.css'
+                });
+                eruda.show();
+                result.innerHTML = '<p style="color: green;">✓ Test 1 passed! Eruda initialized with external CSS.</p>';
+            } catch (error) {
+                result.innerHTML = '<p style="color: red;">✗ Test 1 failed: ' + error.message + '</p>';
+            }
+        }
+
+        function test2() {
+            const result = document.getElementById('result2');
+            result.innerHTML = '<p>Loading CSS via eruda.loadCss()...</p>';
+            
+            try {
+                // First clear any existing eruda instance
+                if (window.eruda) {
+                    eruda.loadCss('../dist/eruda.css');
+                    eruda.init();
+                    eruda.show();
+                }
+                result.innerHTML = '<p style="color: green;">✓ Test 2 passed! CSS loaded and eruda initialized.</p>';
+            } catch (error) {
+                result.innerHTML = '<p style="color: red;">✗ Test 2 failed: ' + error.message + '</p>';
+            }
+        }
+
+        function test3() {
+            const result = document.getElementById('result3');
+            result.innerHTML = '<p>Adding CSS link tag manually...</p>';
+            
+            try {
+                // Add CSS link
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = '../dist/eruda.css';
+                document.head.appendChild(link);
+                
+                // Wait a bit for CSS to load
+                setTimeout(() => {
+                    eruda.init();
+                    eruda.show();
+                    result.innerHTML = '<p style="color: green;">✓ Test 3 passed! Traditional method works.</p>';
+                }, 500);
+            } catch (error) {
+                result.innerHTML = '<p style="color: red;">✗ Test 3 failed: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>

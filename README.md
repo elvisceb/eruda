@@ -53,12 +53,44 @@ Add this script to your page.
 <script>eruda.init();</script>
 ```
 
+**New in v3.4.3+**: You can now load CSS dynamically using the `cssUrl` parameter:
+
+```html
+<script src="node_modules/eruda/eruda.js"></script>
+<script>
+  eruda.init({
+    cssUrl: 'node_modules/eruda/eruda.css'
+  });
+</script>
+```
+
+Or load CSS before initialization:
+
+```html
+<script src="node_modules/eruda/eruda.js"></script>
+<script>
+  eruda.loadCss('node_modules/eruda/eruda.css');
+  eruda.init();
+</script>
+```
+
 It's also available on [jsDelivr](http://www.jsdelivr.com/projects/eruda) and [cdnjs](https://cdnjs.com/libraries/eruda).
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/eruda/eruda.css">
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
+```
+
+Or with dynamic CSS loading:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+  eruda.init({
+    cssUrl: 'https://cdn.jsdelivr.net/npm/eruda/eruda.css'
+  });
+</script>
 ```
 
 For more detailed usage instructions, please read the documentation at [eruda.liriliri.io](https://eruda.liriliri.io/docs/)!

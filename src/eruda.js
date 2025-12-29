@@ -38,6 +38,7 @@ export default {
     useShadowDom = true,
     inline = false,
     defaults = {},
+    cssUrl,
   } = {}) {
     if (this._isInit) {
       return
@@ -45,6 +46,11 @@ export default {
 
     this._isInit = true
     this._scale = 1
+
+    // Load external CSS if URL is provided
+    if (cssUrl) {
+      this._loadExternalCss(cssUrl)
+    }
 
     this._initContainer(container, useShadowDom)
     this._initStyle()
@@ -65,6 +71,23 @@ export default {
   },
   _isInit: false,
   version: VERSION,
+  loadCss(cssUrl) {
+    // Allow loading CSS before init() is called
+    const existingLink = document.querySelector(`link[href="${cssUrl}"]`)
+    if (existingLink) {
+      return
+    }
+
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = cssUrl
+
+    const head = document.head || document.getElementsByTagName('head')[0]
+    head.appendChild(link)
+
+    return this
+  },
   util: {
     isErudaEl: util.isErudaEl,
     evalCss,
@@ -300,5 +323,24 @@ export default {
     })
 
     devTools.showTool(tool[0] || 'settings')
+  },
+  _loadExternalCss(cssUrl) {
+    // Check if CSS link already exists
+    const existingLink = document.querySelector(`link[href="${cssUrl}"]`)
+    if (existingLink) {
+      return
+    }
+
+    // Create and inject link element
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = cssUrl
+
+    // Add to document head
+    const head = document.head || document.getElementsByTagName('head')[0]
+    head.appendChild(link)
+
+    logger.log('Loaded external Eruda CSS from:', cssUrl)
   },
 }
