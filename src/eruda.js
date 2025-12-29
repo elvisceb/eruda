@@ -38,6 +38,7 @@ export default {
     useShadowDom = true,
     inline = false,
     defaults = {},
+    assetUrl = '',
   } = {}) {
     if (this._isInit) {
       return
@@ -45,6 +46,7 @@ export default {
 
     this._isInit = true
     this._scale = 1
+    this._assetUrl = assetUrl
 
     this._initContainer(container, useShadowDom)
     this._initStyle()
@@ -249,6 +251,11 @@ export default {
   _initStyle() {
     const className = 'eruda-style-container'
     const $el = this._$el
+
+    // Set asset URL if provided
+    if (this._assetUrl) {
+      evalCss.setAssetUrl(this._assetUrl)
+    }
 
     if (this._shadowRoot) {
       evalCss.container = this._shadowRoot

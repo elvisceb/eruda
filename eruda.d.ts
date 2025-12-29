@@ -43,6 +43,12 @@ declare module 'eruda' {
      * Default settings
      */
     defaults?: InitDefaults
+    /**
+     * Base URL for serving eruda assets (fonts, icons).
+     * If not set, assets will be loaded from the default location or inline.
+     * Example: 'https://cdn.example.com/eruda-assets/'
+     */
+    assetUrl?: string
   }
 
   export interface Position {

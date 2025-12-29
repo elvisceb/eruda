@@ -93,8 +93,12 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: /luna-dom-highlighter/,
+        exclude: [/luna-dom-highlighter/, /icon\.css$/],
         use: ['css-loader', postcssLoader],
+      },
+      {
+        test: /icon\.css$/,
+        use: [rawLoader],
       },
       {
         test: /luna-dom-highlighter\.css$/,
