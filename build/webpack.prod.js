@@ -32,7 +32,10 @@ exports.plugins = exports.plugins.concat([
                 size: () => content.length,
               })
             } catch (err) {
-              console.error('Error copying font file:', err)
+              const error = new Error(
+                `Failed to copy font file from ${fontSrc} to ${fontDest}: ${err.message}`
+              )
+              compilation.errors.push(error)
             }
           }
         )
