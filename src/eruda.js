@@ -73,19 +73,7 @@ export default {
   version: VERSION,
   loadCss(cssUrl) {
     // Allow loading CSS before init() is called
-    const existingLink = document.querySelector(`link[href="${cssUrl}"]`)
-    if (existingLink) {
-      return
-    }
-
-    const link = document.createElement('link')
-    link.rel = 'stylesheet'
-    link.type = 'text/css'
-    link.href = cssUrl
-
-    const head = document.head || document.getElementsByTagName('head')[0]
-    head.appendChild(link)
-
+    this._loadExternalCss(cssUrl)
     return this
   },
   util: {

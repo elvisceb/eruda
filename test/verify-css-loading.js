@@ -37,8 +37,7 @@ const distContent = fs.readFileSync(distPath, 'utf8');
 const hasLoadCssInDist = distContent.includes('loadCss');
 const hasCssUrlInDist = distContent.includes('cssUrl');
 const hasLinkElementCreation = distContent.includes('createElement("link")') || 
-                                distContent.includes('createElement(\'link\')') ||
-                                distContent.includes('createElement("link")');
+                                distContent.includes("createElement('link')");
 
 if (hasLoadCssInDist && hasCssUrlInDist) {
   console.log('✓ Built file contains the new functionality');
