@@ -53,7 +53,7 @@ Add this script to your page.
 <script>eruda.init();</script>
 ```
 
-**New in v3.4.3+**: You can now load CSS dynamically using the `cssUrl` parameter:
+**New Feature**: You can now load CSS dynamically using the `cssUrl` parameter:
 
 ```html
 <script src="node_modules/eruda/eruda.js"></script>

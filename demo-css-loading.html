@@ -128,11 +128,18 @@
         }
 
         // Auto-initialize on load for demonstration
-        setTimeout(() => {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                eruda.init({
+                    cssUrl: 'dist/eruda.css'
+                });
+            });
+        } else {
+            // DOM is already loaded
             eruda.init({
                 cssUrl: 'dist/eruda.css'
             });
-        }, 1000);
+        }
     </script>
 </body>
 </html>

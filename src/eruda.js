@@ -313,10 +313,12 @@ export default {
     devTools.showTool(tool[0] || 'settings')
   },
   _loadExternalCss(cssUrl) {
-    // Check if CSS link already exists
-    const existingLink = document.querySelector(`link[href="${cssUrl}"]`)
-    if (existingLink) {
-      return
+    // Check if CSS link already exists by iterating through existing links
+    const links = document.getElementsByTagName('link')
+    for (let i = 0; i < links.length; i++) {
+      if (links[i].href === cssUrl) {
+        return
+      }
     }
 
     // Create and inject link element
