@@ -48,7 +48,6 @@ npm install eruda --save-dev
 Add this script to your page.
 
 ```html
-<link rel="stylesheet" href="node_modules/eruda/eruda.css">
 <script src="node_modules/eruda/eruda.js"></script>
 <script>eruda.init();</script>
 ```
@@ -56,7 +55,6 @@ Add this script to your page.
 It's also available on [jsDelivr](http://www.jsdelivr.com/projects/eruda) and [cdnjs](https://cdnjs.com/libraries/eruda).
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/eruda/eruda.css">
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
 ```

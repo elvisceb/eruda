@@ -12,6 +12,7 @@ import isMobile from 'licia/isMobile'
 import isShadowRoot from 'licia/isShadowRoot'
 import LunaDomViewer from 'luna-dom-viewer'
 import { isErudaEl, classPrefix as c, isChobitsuEl } from '../lib/util'
+import evalCss from '../lib/evalCss'
 import Detail from './Detail'
 import chobitsu from '../lib/chobitsu'
 import emitter from '../lib/emitter'
@@ -21,7 +22,7 @@ export default class Elements extends Tool {
   constructor() {
     super()
 
-    // CSS is now loaded externally via <link> tag
+    this._style = evalCss(require('./Elements.scss'))
 
     this.name = 'elements'
     this._selectElement = false
@@ -77,6 +78,7 @@ export default class Elements extends Tool {
     super.destroy()
 
     emitter.off(emitter.SCALE, this._updateScale)
+    evalCss.remove(this._style)
     this._detail.destroy()
     chobitsu
       .domain('Overlay')

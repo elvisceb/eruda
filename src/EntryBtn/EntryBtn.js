@@ -6,6 +6,7 @@ import nextTick from 'licia/nextTick'
 import orientation from 'licia/orientation'
 import pointerEvent from 'licia/pointerEvent'
 import { pxToNum, classPrefix as c, eventClient } from '../lib/util'
+import evalCss from '../lib/evalCss'
 
 const $document = $(document)
 
@@ -13,7 +14,7 @@ export default class EntryBtn extends Emitter {
   constructor($container) {
     super()
 
-    // CSS is now loaded externally via <link> tag
+    this._style = evalCss(require('./EntryBtn.scss'))
 
     this._$container = $container
     this._initTpl()
@@ -42,6 +43,7 @@ export default class EntryBtn extends Emitter {
     return this.config.get('pos')
   }
   destroy() {
+    evalCss.remove(this._style)
     this._unregisterListener()
     this._$el.remove()
   }
