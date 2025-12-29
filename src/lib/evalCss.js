@@ -20,12 +20,22 @@ const exports = function (css, container) {
   }
 
   container = container || exports.container || document.head
-  const el = document.createElement('style')
 
-  el.type = 'text/css'
-  container.appendChild(el)
+  // Check if container supports adoptedStyleSheets (ShadowRoot or Document)
+  const useAdoptedStyleSheets = 'adoptedStyleSheets' in container
 
-  const style = { css, el, container }
+  let style
+  if (useAdoptedStyleSheets) {
+    const sheet = new CSSStyleSheet()
+    container.adoptedStyleSheets = [...container.adoptedStyleSheets, sheet]
+    style = { css, sheet, container, useAdoptedStyleSheets: true }
+  } else {
+    const el = document.createElement('style')
+    el.type = 'text/css'
+    container.appendChild(el)
+    style = { css, el, container, useAdoptedStyleSheets: false }
+  }
+
   resetStyle(style)
   styleList.push(style)
 
@@ -52,21 +62,37 @@ exports.getCurTheme = () => curTheme
 exports.getThemes = () => themes
 
 exports.clear = function () {
-  each(styleList, ({ container, el }) => container.removeChild(el))
+  each(styleList, ({ container, el, sheet, useAdoptedStyleSheets }) => {
+    if (useAdoptedStyleSheets && sheet) {
+      // Remove the stylesheet from adoptedStyleSheets array
+      container.adoptedStyleSheets = container.adoptedStyleSheets.filter(
+        (s) => s !== sheet
+      )
+    } else if (el) {
+      container.removeChild(el)
+    }
+  })
   styleList = []
 }
 
 exports.remove = function (style) {
   styleList = filter(styleList, (s) => s !== style)
 
-  style.container.removeChild(style.el)
+  if (style.useAdoptedStyleSheets && style.sheet) {
+    // Remove the stylesheet from adoptedStyleSheets array
+    style.container.adoptedStyleSheets = style.container.adoptedStyleSheets.filter(
+      (s) => s !== style.sheet
+    )
+  } else if (style.el) {
+    style.container.removeChild(style.el)
+  }
 }
 
 function resetStyles() {
   each(styleList, (style) => resetStyle(style))
 }
 
-function resetStyle({ css, el }) {
+function resetStyle({ css, el, sheet, useAdoptedStyleSheets }) {
   css = css.replace(/(\d+)px/g, ($0, $1) => +$1 * scale + 'px')
   css = css.replace(/_/g, 'eruda-')
   const _keys = keys(themes.Light)
@@ -76,7 +102,12 @@ function resetStyle({ css, el }) {
       curTheme[key]
     )
   })
-  el.innerText = css
+
+  if (useAdoptedStyleSheets && sheet) {
+    sheet.replaceSync(css)
+  } else if (el) {
+    el.innerText = css
+  }
 }
 
 export default exports
