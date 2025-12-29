@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eruda CSS Auto-Load Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .feature h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        code {
+            background: #e9ecef;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+    <script src="dist/eruda.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Eruda External CSS Loading</h1>
+        
+        <div class="success">
+            <strong>✓ New Feature:</strong> Eruda now supports automatic external CSS loading!
+        </div>
+
+        <div class="feature">
+            <h3>Method 1: Auto-load via cssUrl parameter</h3>
+            <p>Initialize Eruda with the CSS URL parameter:</p>
+            <code>eruda.init({ cssUrl: 'dist/eruda.css' });</code>
+            <br><br>
+            <button onclick="loadWithCssUrl()">Test Method 1</button>
+        </div>
+
+        <div class="feature">
+            <h3>Method 2: Pre-load with loadCss()</h3>
+            <p>Load CSS before initialization:</p>
+            <code>eruda.loadCss('dist/eruda.css');</code><br>
+            <code>eruda.init();</code>
+            <br><br>
+            <button onclick="loadWithLoadCss()">Test Method 2</button>
+        </div>
+
+        <div class="feature">
+            <h3>Benefits</h3>
+            <ul>
+                <li>✨ No need to manually add CSS link tags</li>
+                <li>🎨 Proper theme colors and styling</li>
+                <li>🖼️ Icons and logos display correctly</li>
+                <li>⚡ Console behavior works as expected</li>
+                <li>📦 Easier CDN integration</li>
+            </ul>
+        </div>
+
+        <p style="text-align: center; color: #666; margin-top: 40px;">
+            Click either button above to initialize Eruda with external CSS loading.
+        </p>
+    </div>
+
+    <script>
+        function loadWithCssUrl() {
+            eruda.init({
+                cssUrl: 'dist/eruda.css'
+            });
+            eruda.show();
+            alert('Eruda initialized with cssUrl parameter! Check the console panel.');
+        }
+
+        function loadWithLoadCss() {
+            eruda.loadCss('dist/eruda.css');
+            eruda.init();
+            eruda.show();
+            alert('Eruda initialized with loadCss() method! Check the console panel.');
+        }
+
+        // Auto-initialize on load for demonstration
+        setTimeout(() => {
+            eruda.init({
+                cssUrl: 'dist/eruda.css'
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

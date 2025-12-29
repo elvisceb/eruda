@@ -340,7 +340,5 @@ export default {
     // Add to document head
     const head = document.head || document.getElementsByTagName('head')[0]
     head.appendChild(link)
-
-    logger.log('Loaded external Eruda CSS from:', cssUrl)
   },
 }
