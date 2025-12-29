@@ -100,8 +100,8 @@ function resetStyles() {
 
 function resetStyle({ css, el, sheet, useAdoptedStyleSheets }) {
   css = css.replace(/(\d+)px/g, ($0, $1) => +$1 * scale + 'px')
-  css = css.replace(/_/g, 'eruda-')
   css = css.replace(/__ERUDA_ASSET_URL__/g, assetUrl)
+  css = css.replace(/_/g, 'eruda-')
   const _keys = keys(themes.Light)
   each(_keys, (key) => {
     css = css.replace(

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test assetUrl Option</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: #333; }
+    .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Testing assetUrl Option for Eruda</h1>
+  
+  <div class="test-section">
+    <h2>Test 1: Default (no assetUrl)</h2>
+    <p>When no assetUrl is provided, the font URL should remain as empty string prefix.</p>
+    <button onclick="test1()">Run Test 1</button>
+    <div id="test1-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 2: With assetUrl</h2>
+    <p>When assetUrl is provided, the font should load from the specified CDN URL.</p>
+    <button onclick="test2()">Run Test 2</button>
+    <div id="test2-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 3: With relative assetUrl</h2>
+    <p>Test with relative path to local dist folder.</p>
+    <button onclick="test3()">Run Test 3</button>
+    <div id="test3-result"></div>
+  </div>
+
+  <script src="../dist/eruda.js"></script>
+  <script>
+    function test1() {
+      console.log('Test 1: Initializing without assetUrl');
+      eruda.init();
+      
+      // Check the generated CSS
+      setTimeout(() => {
+        const styles = document.querySelectorAll('style');
+        let found = false;
+        styles.forEach(style => {
+          const css = style.textContent || style.innerText;
+          if (css.includes('eruda-icon')) {
+            console.log('Found icon CSS:', css.substring(0, 200));
+            document.getElementById('test1-result').innerHTML = '<pre>' + 
+              css.substring(0, 300).replace(/</g, '&lt;') + '...</pre>';
+            found = true;
+          }
+        });
+        if (!found) {
+          document.getElementById('test1-result').innerHTML = '<p style="color: red;">Icon CSS not found!</p>';
+        }
+      }, 500);
+    }
+    
+    function test2() {
+      if (window.eruda && eruda._isInit) {
+        eruda.destroy();
+      }
+      
+      console.log('Test 2: Initializing with CDN assetUrl');
+      eruda.init({
+        assetUrl: 'https://cdn.jsdelivr.net/npm/eruda@latest/'
+      });
+      
+      setTimeout(() => {
+        const styles = document.querySelectorAll('style');
+        let found = false;
+        styles.forEach(style => {
+          const css = style.textContent || style.innerText;
+          if (css.includes('eruda-icon')) {
+            console.log('Found icon CSS with CDN:', css.substring(0, 200));
+            document.getElementById('test2-result').innerHTML = '<pre>' + 
+              css.substring(0, 300).replace(/</g, '&lt;') + '...</pre>';
+            found = true;
+          }
+        });
+        if (!found) {
+          document.getElementById('test2-result').innerHTML = '<p style="color: red;">Icon CSS not found!</p>';
+        }
+      }, 500);
+    }
+    
+    function test3() {
+      if (window.eruda && eruda._isInit) {
+        eruda.destroy();
+      }
+      
+      console.log('Test 3: Initializing with relative assetUrl');
+      eruda.init({
+        assetUrl: '../dist/'
+      });
+      
+      setTimeout(() => {
+        const styles = document.querySelectorAll('style');
+        let found = false;
+        styles.forEach(style => {
+          const css = style.textContent || style.innerText;
+          if (css.includes('eruda-icon')) {
+            console.log('Found icon CSS with relative path:', css.substring(0, 200));
+            document.getElementById('test3-result').innerHTML = '<pre>' + 
+              css.substring(0, 300).replace(/</g, '&lt;') + '...</pre>';
+            found = true;
+          }
+        });
+        if (!found) {
+          document.getElementById('test3-result').innerHTML = '<p style="color: red;">Icon CSS not found!</p>';
+        }
+      }, 500);
+    }
+  </script>
+</body>
+</html>
