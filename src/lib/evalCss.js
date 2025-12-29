@@ -9,6 +9,7 @@ import themes from './themes'
 
 let styleList = []
 let scale = 1
+let assetUrl = ''
 
 let curTheme = themes.Light
 
@@ -44,6 +45,11 @@ const exports = function (css, container) {
 
 exports.setScale = function (s) {
   scale = s
+  resetStyles()
+}
+
+exports.setAssetUrl = function (url) {
+  assetUrl = url || ''
   resetStyles()
 }
 
@@ -94,6 +100,7 @@ function resetStyles() {
 
 function resetStyle({ css, el, sheet, useAdoptedStyleSheets }) {
   css = css.replace(/(\d+)px/g, ($0, $1) => +$1 * scale + 'px')
+  css = css.replace(/__ERUDA_ASSET_URL__/g, assetUrl)
   css = css.replace(/_/g, 'eruda-')
   const _keys = keys(themes.Light)
   each(_keys, (key) => {

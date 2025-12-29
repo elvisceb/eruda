@@ -1,3 +1,0 @@
-/*! eruda v3.4.3 https://eruda.liriliri.io/ */
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.eruda=t():e.eruda=t()}(self,function(){return function(){"use strict";var e={r:function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};return e.r(t),t}()});
-//# sourceMappingURL=eruda-styles.js.map
