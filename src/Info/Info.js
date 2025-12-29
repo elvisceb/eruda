@@ -4,6 +4,7 @@ import each from 'licia/each'
 import isFn from 'licia/isFn'
 import isUndef from 'licia/isUndef'
 import cloneDeep from 'licia/cloneDeep'
+import evalCss from '../lib/evalCss'
 import map from 'licia/map'
 import escape from 'licia/escape'
 import copy from 'licia/copy'
@@ -14,6 +15,7 @@ export default class Info extends Tool {
   constructor() {
     super()
 
+    this._style = evalCss(require('./Info.scss'))
 
     this.name = 'info'
     this._infos = []
@@ -28,6 +30,7 @@ export default class Info extends Tool {
   destroy() {
     super.destroy()
 
+    evalCss.remove(this._style)
   }
   add(name, val) {
     const infos = this._infos

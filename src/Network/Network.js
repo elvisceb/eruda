@@ -6,6 +6,7 @@ import map from 'licia/map'
 import Detail from './Detail'
 import throttle from 'licia/throttle'
 import { getFileName, classPrefix as c } from '../lib/util'
+import evalCss from '../lib/evalCss'
 import chobitsu from '../lib/chobitsu'
 import emitter from '../lib/emitter'
 import LunaDataGrid from 'luna-data-grid'
@@ -23,7 +24,7 @@ export default class Network extends Tool {
   constructor() {
     super()
 
-    // CSS is now loaded externally via <link> tag
+    this._style = evalCss(require('./Network.scss'))
 
     this.name = 'network'
     this._requests = {}
@@ -344,6 +345,7 @@ export default class Network extends Tool {
     super.destroy()
 
     this._resizeSensor.destroy()
+    evalCss.remove(this._style)
     this._splitMediaQuery.removeAllListeners()
 
     const network = chobitsu.domain('Network')

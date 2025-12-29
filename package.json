@@ -74,7 +74,6 @@
     "luna-setting": "^2.0.2",
     "luna-tab": "^0.4.3",
     "luna-text-viewer": "^0.2.1",
-    "mini-css-extract-plugin": "^2.9.4",
     "postcss-clean": "^1.2.2",
     "postcss-loader": "^3.0.0",
     "postcss-prefixer": "^2.1.3",

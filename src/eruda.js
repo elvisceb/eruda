@@ -27,7 +27,7 @@ import upperFirst from 'licia/upperFirst'
 import nextTick from 'licia/nextTick'
 import isEqual from 'licia/isEqual'
 import extend from 'licia/extend'
-import evalCss from './lib/evalCss' // Used for theme/scale management and shadow DOM styles
+import evalCss from './lib/evalCss'
 import chobitsu from './lib/chobitsu'
 
 export default {
@@ -208,9 +208,16 @@ export default {
         shadowRoot = container.createShadowRoot()
       }
       if (shadowRoot) {
-        // When using shadow DOM, styles need to be loaded externally in the document head
-        // Font-face and other styles don't work inside shadow dom when loaded externally
-        // Users should include: <link rel="stylesheet" href="path/to/eruda.css">
+        // font-face doesn't work inside shadow dom.
+        evalCss.container = document.head
+        evalCss(
+          require('./style/icon.css') +
+            require('luna-console/luna-console.css') +
+            require('luna-object-viewer/luna-object-viewer.css') +
+            require('luna-dom-viewer/luna-dom-viewer.css') +
+            require('luna-text-viewer/luna-text-viewer.css') +
+            require('luna-notification/luna-notification.css')
+        )
 
         el = document.createElement('div')
         shadowRoot.appendChild(el)
@@ -240,8 +247,6 @@ export default {
     })
   },
   _initStyle() {
-    // CSS is now loaded externally via <link> tag
-    // We only need to set the evalCss container for any dynamic CSS injections
     const className = 'eruda-style-container'
     const $el = this._$el
 
@@ -253,8 +258,21 @@ export default {
       evalCss.container = $el.find(`.${className}`).get(0)
     }
 
-    // Note: Main styles are now loaded externally
-    // Users must include: <link rel="stylesheet" href="path/to/eruda.css">
+    evalCss(
+      require('./style/reset.scss') +
+        require('luna-object-viewer/luna-object-viewer.css') +
+        require('luna-console/luna-console.css') +
+        require('luna-notification/luna-notification.css') +
+        require('luna-data-grid/luna-data-grid.css') +
+        require('luna-dom-viewer/luna-dom-viewer.css') +
+        require('luna-modal/luna-modal.css') +
+        require('luna-tab/luna-tab.css') +
+        require('luna-text-viewer/luna-text-viewer.css') +
+        require('luna-setting/luna-setting.css') +
+        require('luna-box-model/luna-box-model.css') +
+        require('./style/style.scss') +
+        require('./style/icon.css')
+    )
   },
   _initEntryBtn() {
     this._entryBtn = new EntryBtn(this._$el)
